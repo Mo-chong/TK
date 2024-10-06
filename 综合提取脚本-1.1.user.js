@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         综合提取脚本
 // @namespace    http://tampermonkey.net/
-// @version      1.2
-// @description  从 __telegram__initParams 和 sessionStorage 中提取数据并提供按钮以便复制到剪贴板，删除提取数据结尾的多余双引号
+// @version      1.3
+// @description  从 __telegram__initParams 和 sessionStorage 中提取数据并提供按钮以便复制到剪贴板
 // @author       You
 // @match        *://*/*
 // @grant        none
@@ -53,12 +53,7 @@
                 const parsedData = JSON.parse(initParams);
                 const tgWebAppData = parsedData.tgWebAppData;
                 if (tgWebAppData) {
-                    let formattedData = JSON.stringify(tgWebAppData);
-
-                    // 删除结尾的一个双引号
-                    if (formattedData.endsWith('"')) {
-                        formattedData = formattedData.slice(0, -1);
-                    }
+                    const formattedData = JSON.stringify(tgWebAppData).replace(/^\"|\"$/g, ''); // 删除开头和结尾的双引号
 
                     const input = document.createElement('input');
                     input.value = formattedData;
@@ -95,13 +90,7 @@
                     const auth_date = dataParams.get('auth_date');
                     const hash = dataParams.get('hash');
 
-                    // 组合成需要的格式
-                    let formattedData = `query_id=${query_id}&user=${encodeURIComponent(user)}&auth_date=${auth_date}&hash=${hash}`;
-
-                    // 删除结尾的一个双引号
-                    if (formattedData.endsWith('"')) {
-                        formattedData = formattedData.slice(0, -1);
-                    }
+                    const formattedData = `query_id=${query_id}&user=${encodeURIComponent(user)}&auth_date=${auth_date}&hash=${hash}`.replace(/^\"|\"$/g, ''); // 删除开头和结尾的双引号
 
                     const input = document.createElement('input');
                     input.value = formattedData;
