@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         仓鼠提取 authToken
+// @name         提取 authToken
 // @namespace    http://tampermonkey.net/
 // @version      1.0
 // @description  从本地存储中提取 authToken 并提供按钮以便复制到剪贴板
